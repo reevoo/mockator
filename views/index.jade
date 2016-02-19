@@ -1,14 +1,13 @@
 extends layout
 
 block content
-  h1 Mockator
+  img(id="logo" src="/mockator/img/logo.png" height="70")
   form(method="post" action='/mockator/scrape')
     div.input-group
       input(type="text" class="form-control" placeholder="URL to scrape..." name="url")
       span.input-group-btn
         button.btn.btn-default(type="submit") Scrape
-        
-  h2 Saved pages
+      
   .row
     each page, i in (pages || [])
       .col-sm-6.col-md-4

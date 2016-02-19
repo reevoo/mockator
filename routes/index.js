@@ -33,10 +33,8 @@ router.post('/mockator/scrape', function(req, res) {
       throw err;
     } else {
       var $ = cheerio.load(body);
-      $('body').append('<script src="/mockator/js/mockator.js"></script>');
       pageArgs.title = $('title').text();
       pageArgs.html = $.html();
-
 
       var page = new req.models.Page(pageArgs);
       page.save(function (err) {
@@ -56,7 +54,18 @@ router.post('/mockator/scrape', function(req, res) {
 router.get('/mockator/pages/:id', function(req, res) {
   req.models.Page.findOne({ _id: req.params.id }, function(err, page) {
     res.cookie('pageUrl', page.url);
-    res.send(page.html);
+    var $ = cheerio.load(page.html);
+    $('body').append('<script id="mockator-script" src="/mockator/js/mockator.js"></script>');
+    res.send($.html());
+  });
+});
+
+
+router.put('/mockator/pages/:id/html', function(req, res) {
+  var $ = cheerio.load(req.body);
+  $('#mockator-script').remove();
+  req.models.Page.findOneAndUpdate({ _id: req.params.id }, { html: $.html() }, function(err, page) {
+    res.redirect('/');
   });
 });
 
@@ -64,7 +73,11 @@ router.get('/mockator/pages/:id', function(req, res) {
 router.delete('/mockator/pages/:id', function(req, res) {
   req.models.Page.remove({ _id: req.params.id }, function(err) {
     res.redirect('/');
-    fs.unlink(screenshotPath(page.id));
+    try {
+      fs.unlink(screenshotPath(req.params.id));
+    } catch(err) {
+      // ignore for now
+    }
   });
 });
 
