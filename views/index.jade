@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 Mockator
-  form(method="post" action="/mockator/scrape")
+  form(method="post" action='/mockator/scrape')
     div.input-group
       input(type="text" class="form-control" placeholder="URL to scrape..." name="url")
       span.input-group-btn
@@ -13,10 +13,11 @@ block content
     each page, i in (pages || [])
       .col-sm-6.col-md-4
         .thumbnail
-          img(src='/mockator/page-screenshots/#{page.id}.png')
+          a(href='/mockator/pages/#{page.id}' target="_blank")
+            img(src='/mockator/page-screenshots/#{page.id}.png')
           .caption
             h3= page.title
-            p
+            form(method='post' action='/mockator/pages/#{page.id}?_method=DELETE')
               a.btn.btn-primary(href='/mockator/pages/#{page.id}' role='button' target="_blank") Mock
               | 
-              a.btn.btn-default(href='#' role='button') Remove
+              button.btn.btn-default(type='submit') Remove

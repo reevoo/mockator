@@ -9,6 +9,12 @@ var mongoose = require('mongoose');
 var router  = express.Router();
 
 
+
+function screenshotPath(id) {
+  return path.resolve('./public/mockator/page-screenshots/' + id + '.png');
+}
+
+
 router.get('/', function(req, res) {
   req.models.Page.find({}, function(err, pages) {
     res.render('index', { pages: pages });
@@ -37,13 +43,7 @@ router.post('/mockator/scrape', function(req, res) {
         if (err) {
           res.send("There was a problem adding the information to the database.");
         } else {
-          var renderStream = webshot(url);
-          var screenshotPath = path.resolve('./public/mockator/page-screenshots/' + page.id + '.png');
-          var file = fs.createWriteStream(screenshotPath, { encoding: 'binary' });
-
-          renderStream.on('data', function(data) {
-            file.write(data.toString('binary'), 'binary');
-          }).on('end', function() {
+          webshot(url, screenshotPath(page.id), function(err) {
             res.redirect('/');
           });
         }
@@ -57,6 +57,14 @@ router.get('/mockator/pages/:id', function(req, res) {
   req.models.Page.findOne({ _id: req.params.id }, function(err, page) {
     res.cookie('pageUrl', page.url);
     res.send(page.html);
+  });
+});
+
+
+router.delete('/mockator/pages/:id', function(req, res) {
+  req.models.Page.remove({ _id: req.params.id }, function(err) {
+    res.redirect('/');
+    fs.unlink(screenshotPath(page.id));
   });
 });
 
