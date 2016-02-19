@@ -1,7 +1,8 @@
 var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
-var router = express.Router();
+var urlLib  = require('url');
+var router  = express.Router();
 
 
 router.get('/', function(req, res) {
@@ -37,6 +38,20 @@ router.post('/scrape', function(req, res) {
       });
     }
   })
+});
+
+
+router.get('/pages/:id', function(req, res) {
+  req.models.Page.findOne({ _id: req.params.id }, function(err, page) {
+    res.cookie('pageUrl', page.url);
+    res.send(page.html);
+  });
+});
+
+
+router.get('/*', function(req, res) {
+  var absoluteUrl = urlLib.resolve(req.cookies.pageUrl, req.originalUrl);
+  request(absoluteUrl).pipe(res);
 });
 
 
