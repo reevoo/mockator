@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
 });
 
 
-router.post('/scrape', function(req, res) {
+router.post('/mockator/scrape', function(req, res) {
   var url   = req.body.url;
   var pageArgs  = { url: url };
 
@@ -22,7 +22,7 @@ router.post('/scrape', function(req, res) {
       throw err;
     } else {
       var $ = cheerio.load(body);
-      $('body').append('<script src="/mockator-js/mockator.js"></script>');
+      $('body').append('<script src="/mockator/js/mockator.js"></script>');
       pageArgs.title = $('title').text();
       pageArgs.html = $.html();
 
@@ -39,7 +39,7 @@ router.post('/scrape', function(req, res) {
 });
 
 
-router.get('/pages/:id', function(req, res) {
+router.get('/mockator/pages/:id', function(req, res) {
   req.models.Page.findOne({ _id: req.params.id }, function(err, page) {
     res.cookie('pageUrl', page.url);
     res.send(page.html);

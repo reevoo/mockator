@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 Mockator
-  form(method="post" action="/scrape")
+  form(method="post" action="/mockator/scrape")
     div.input-group
       input(type="text" class="form-control" placeholder="URL to scrape..." name="url")
       span.input-group-btn
@@ -12,4 +12,4 @@ block content
   ul
     each page, i in (pages || [])
       li
-        a(href="/pages/#{page.id}")= page.title
+        a(href="/mockator/pages/#{page.id}")= page.title
