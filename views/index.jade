@@ -1,5 +1,15 @@
 extends layout
 
 block content
-    h1= title
-    p Welcome to #{title}
+  h1 Mockator
+  form(method="post" action="/scrape")
+    div.input-group
+      input(type="text" class="form-control" placeholder="URL to scrape..." name="url")
+      span.input-group-btn
+        button.btn.btn-default(type="submit") Mock!
+        
+  h2 Saved pages
+  ul
+    each page, i in (pages || [])
+      li
+        a(href="/pages/#{page.id}")= page.title
