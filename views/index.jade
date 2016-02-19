@@ -6,10 +6,17 @@ block content
     div.input-group
       input(type="text" class="form-control" placeholder="URL to scrape..." name="url")
       span.input-group-btn
-        button.btn.btn-default(type="submit") Mock!
+        button.btn.btn-default(type="submit") Scrape
         
   h2 Saved pages
-  ul
+  .row
     each page, i in (pages || [])
-      li
-        a(href="/mockator/pages/#{page.id}")= page.title
+      .col-sm-6.col-md-4
+        .thumbnail
+          img(src='/mockator/page-screenshots/#{page.id}.png')
+          .caption
+            h3= page.title
+            p
+              a.btn.btn-primary(href='/mockator/pages/#{page.id}' role='button' target="_blank") Mock
+              | 
+              a.btn.btn-default(href='#' role='button') Remove
