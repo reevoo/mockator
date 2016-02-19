@@ -16,17 +16,15 @@ router.post('/scrape', function(req, res) {
   var url   = req.body.url;
   var pageArgs  = { url: url };
 
-  request(url, function(err, response, html) {
+  request(url, function(err, response, body) {
     if (err) {
       res.send("Problem with requesting the page.");
       throw err;
     } else {
-      pageArgs.html = html;
-      var $ = cheerio.load(html);
-      $('title').filter(function() {
-        var element = $(this);
-        pageArgs.title = element.text();
-      });
+      var $ = cheerio.load(body);
+      $('body').append('<script src="/mockator-js/mockator.js"></script>');
+      pageArgs.title = $('title').text();
+      pageArgs.html = $.html();
 
       var page = new req.models.Page(pageArgs);
       page.save(function (err) {
