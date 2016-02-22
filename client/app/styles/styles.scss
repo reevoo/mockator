@@ -1,0 +1,143 @@
+$blue: #1E88E5;
+
+.reevoo-mockator {
+  // &-highlight {
+  //   background-color: green;
+  //   cursor: pointer;
+  // }
+
+  &-badge {
+    display: block;
+  }
+
+  $toolbar-height: 80px;
+
+  &-toolbar {
+    align-items: center;
+    background-color: $blue;
+    bottom: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+    height: $toolbar-height;
+    left: 0;
+    margin-top: 1px;
+    position: fixed;
+    right: 0;
+    z-index: 9999;
+
+    // &__toggle_button {
+    //   background-color: #fff;
+    //   border: 1px solid #ccc;
+    //   height: 30px;
+    //   width: 100px;
+    // }
+
+    &__centered_icons {
+      display: flex;
+      justify-content: center;
+      width: 430px;
+    }
+  }
+
+  &-toolbar_components {
+    align-items: center;
+    background-color: $blue;
+    bottom: $toolbar-height + 1px;
+    box-sizing: border-box;
+    display: none;
+    justify-content: space-around;
+    height: 140px;
+    left: 0;
+    margin-top: 1px;
+    position: fixed;
+    right: 0;
+    z-index: 9999;
+  }
+
+  &-insert_modal {
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    box-sizing: border-box;
+    content: "";
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+
+    &__content {
+      align-items: center;
+      background-color: #fff;
+      border: 1px solid #999;
+      display: flex;
+      flex-direction: column;
+      height: 200px;
+      justify-content: flex-start;
+      left: 50%;
+      margin-left: -175px;
+      margin-top: -100px;
+      padding: 20px;
+      position: fixed;
+      top: 50%;
+      width: 350px;
+      z-index: 999;
+    }
+
+    &__buttons_bar {
+      display: flex;
+      justify-content: space-around;
+
+    }
+  }
+}
+
+.reevoo-icon {
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 70px;
+  width: 70px;
+
+  &.icon1 {
+    background-image: url('../img/icons/eye1.svg');
+    &:hover {
+      background-image: url('../img/icons/eye2.svg');
+    }
+  }
+
+  &.icon2 {
+    background-image: url('../img/icons/files1.svg');
+    &:hover {
+      background-image: url('../img/icons/files2.svg');
+    }
+  }
+
+  &.icon3 {
+    background-image: url('../img/icons/product1.svg');
+    cursor: pointer;
+    &:hover {
+      background-image: url('../img/icons/product2.svg');
+    }
+  }
+
+  &.icon4 {
+    background-image: url('../img/icons/notes1.svg');
+    &:hover {
+      background-image: url('../img/icons/notes2.svg');
+    }
+  }
+
+  &.icon5 {
+    background-image: url('../img/icons/ux1.svg');
+    &:hover {
+      background-image: url('../img/icons/ux2.svg');
+    }
+  }
+
+  &.icon6 {
+    background-image: url('../img/icons/export1.svg');
+    &:hover {
+      background-image: url('../img/icons/export2.svg');
+    }
+  }
+}
