@@ -66,9 +66,11 @@
 	
 	__webpack_require__(20);
 	__webpack_require__(24);
+	
 	// import DomOutline from './dom-outline';
 	
 	// let domOutlineActive = false;
+	var droppableActive = false;
 	
 	var insertAfter = function insertAfter(element, reevooComponent) {
 	  return function () {
@@ -169,6 +171,10 @@
 	//   }
 	// };
 	
+	var hideComponentsToolbar = function hideComponentsToolbar() {
+	  (0, _jquery2.default)('.reevoo-mockator-toolbar_components').hide();
+	};
+	
 	var init = function init() {
 	  var $body = (0, _jquery2.default)('body');
 	
@@ -180,21 +186,47 @@
 	
 	  var $toolbar = (0, _jquery2.default)('<div class="reevoo-mockator-toolbar"></div>');
 	
-	  var $icon0 = (0, _jquery2.default)('<div class="icon"></div>');
+	  var $icon0 = (0, _jquery2.default)('<div class="reevoo-icon"></div>');
 	
 	  var $icons = (0, _jquery2.default)('<div class="reevoo-mockator-toolbar__centered_icons"></div>');
-	  var $icon1 = (0, _jquery2.default)('<div class="icon icon1"></div>');
-	  var $icon2 = (0, _jquery2.default)('<div class="icon icon2"></div>');
+	  var $icon1 = (0, _jquery2.default)('<div class="reevoo-icon icon1"></div>');
+	  var $icon2 = (0, _jquery2.default)('<div class="reevoo-icon icon2"></div>');
 	
-	  var $icon3 = (0, _jquery2.default)('<div class="icon icon3"></div>');
+	  var $icon3 = (0, _jquery2.default)('<div class="reevoo-icon icon3"></div>');
 	  $icon3.on('click', function () {
 	    (0, _jquery2.default)('.reevoo-mockator-toolbar_components').css('display', 'flex');
+	
+	    if (!droppableActive) {
+	      droppableActive = true;
+	      (0, _jquery2.default)('*').droppable({
+	        greedy: true,
+	        drop: function drop(event, ui) {
+	          event.stopImmediatePropagation();
+	
+	          var badge = null;
+	
+	          if (ui.draggable[0].src == _product_rating_small2.default) {
+	            badge = createBadge(false, true);
+	          } else {
+	            badge = createBadge();
+	          }
+	
+	          openInsertModal(event.target, badge);
+	        }
+	      });
+	    }
 	  });
 	
-	  var $icon4 = (0, _jquery2.default)('<div class="icon icon4"></div>');
-	  var $icon5 = (0, _jquery2.default)('<div class="icon icon5"></div>');
+	  var $icon4 = (0, _jquery2.default)('<div class="reevoo-icon icon4"></div>');
+	  var $icon5 = (0, _jquery2.default)('<div class="reevoo-icon icon5"></div>');
 	
-	  var $icon6 = (0, _jquery2.default)('<div class="icon icon6"></div>');
+	  var $icon6 = (0, _jquery2.default)('<div class="reevoo-icon icon6"></div>');
+	
+	  $icon1.on('click', hideComponentsToolbar);
+	  $icon2.on('click', hideComponentsToolbar);
+	  $icon4.on('click', hideComponentsToolbar);
+	  $icon5.on('click', hideComponentsToolbar);
+	  $icon6.on('click', hideComponentsToolbar);
 	
 	  $icons.append($icon1);
 	  $icons.append($icon2);
@@ -209,23 +241,6 @@
 	  // const $toggleDomOutlineButton =
 	  //   $('<button class="reevoo-mockator-toolbar__toggle_button">Start</button>');
 	  // $toggleDomOutlineButton.on('click', toggleDomOutline);
-	
-	  (0, _jquery2.default)('*').droppable({
-	    greedy: true,
-	    drop: function drop(event, ui) {
-	      event.stopImmediatePropagation();
-	
-	      var badge = null;
-	
-	      if (ui.draggable[0].src == _product_rating_small2.default) {
-	        badge = createBadge(false, true);
-	      } else {
-	        badge = createBadge();
-	      }
-	
-	      openInsertModal(event.target, badge);
-	    }
-	  });
 	
 	  // $toolbar.append($toggleDomOutlineButton);
 	
@@ -10108,7 +10123,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".reevoo-mockator-badge {\n  display: block; }\n\n.reevoo-mockator-toolbar {\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #1E88E5;\n  bottom: 0;\n  box-sizing: border-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-justify-content: space-around;\n      -ms-flex-pack: distribute;\n          justify-content: space-around;\n  height: 80px;\n  left: 0;\n  margin-top: 1px;\n  position: fixed;\n  right: 0; }\n  .reevoo-mockator-toolbar__centered_icons {\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-justify-content: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    width: 430px; }\n\n.reevoo-mockator-toolbar_components {\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n              -ms-grid-row-align: center;\n          align-items: center;\n  background-color: #1E88E5;\n  bottom: 81px;\n  box-sizing: border-box;\n  display: none;\n  -webkit-justify-content: space-around;\n      -ms-flex-pack: distribute;\n          justify-content: space-around;\n  height: 140px;\n  left: 0;\n  margin-top: 1px;\n  position: fixed;\n  right: 0; }\n\n.reevoo-mockator-insert_modal {\n  background-color: rgba(0, 0, 0, 0.6);\n  bottom: 0;\n  box-sizing: border-box;\n  content: \"\";\n  left: 0;\n  position: fixed;\n  right: 0;\n  top: 0;\n  z-index: 98; }\n  .reevoo-mockator-insert_modal__content {\n    -webkit-align-items: center;\n        -ms-flex-align: center;\n            align-items: center;\n    background-color: #fff;\n    border: 1px solid #999;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-flex-direction: column;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    height: 200px;\n    -webkit-justify-content: flex-start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    left: 50%;\n    margin-left: -175px;\n    margin-top: -100px;\n    padding: 20px;\n    position: fixed;\n    top: 50%;\n    width: 350px;\n    z-index: 999; }\n  .reevoo-mockator-insert_modal__buttons_bar {\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-justify-content: space-around;\n        -ms-flex-pack: distribute;\n            justify-content: space-around; }\n\n.icon {\n  background-position: center;\n  background-repeat: no-repeat;\n  height: 70px;\n  width: 70px; }\n  .icon.icon1 {\n    background-image: url(" + __webpack_require__(5) + "); }\n    .icon.icon1:hover {\n      background-image: url(" + __webpack_require__(6) + "); }\n  .icon.icon2 {\n    background-image: url(" + __webpack_require__(7) + "); }\n    .icon.icon2:hover {\n      background-image: url(" + __webpack_require__(8) + "); }\n  .icon.icon3 {\n    background-image: url(" + __webpack_require__(9) + ");\n    cursor: pointer; }\n    .icon.icon3:hover {\n      background-image: url(" + __webpack_require__(10) + "); }\n  .icon.icon4 {\n    background-image: url(" + __webpack_require__(11) + "); }\n    .icon.icon4:hover {\n      background-image: url(" + __webpack_require__(12) + "); }\n  .icon.icon5 {\n    background-image: url(" + __webpack_require__(13) + "); }\n    .icon.icon5:hover {\n      background-image: url(" + __webpack_require__(14) + "); }\n  .icon.icon6 {\n    background-image: url(" + __webpack_require__(15) + "); }\n    .icon.icon6:hover {\n      background-image: url(" + __webpack_require__(16) + "); }\n", ""]);
+	exports.push([module.id, ".reevoo-mockator-badge {\n  display: block; }\n\n.reevoo-mockator-toolbar {\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #1E88E5;\n  bottom: 0;\n  box-sizing: border-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-justify-content: space-around;\n      -ms-flex-pack: distribute;\n          justify-content: space-around;\n  height: 80px;\n  left: 0;\n  margin-top: 1px;\n  position: fixed;\n  right: 0;\n  z-index: 9999; }\n  .reevoo-mockator-toolbar__centered_icons {\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-justify-content: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    width: 430px; }\n\n.reevoo-mockator-toolbar_components {\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n              -ms-grid-row-align: center;\n          align-items: center;\n  background-color: #1E88E5;\n  bottom: 81px;\n  box-sizing: border-box;\n  display: none;\n  -webkit-justify-content: space-around;\n      -ms-flex-pack: distribute;\n          justify-content: space-around;\n  height: 140px;\n  left: 0;\n  margin-top: 1px;\n  position: fixed;\n  right: 0;\n  z-index: 9999; }\n\n.reevoo-mockator-insert_modal {\n  background-color: rgba(0, 0, 0, 0.6);\n  bottom: 0;\n  box-sizing: border-box;\n  content: \"\";\n  left: 0;\n  position: fixed;\n  right: 0;\n  top: 0;\n  z-index: 9999; }\n  .reevoo-mockator-insert_modal__content {\n    -webkit-align-items: center;\n        -ms-flex-align: center;\n            align-items: center;\n    background-color: #fff;\n    border: 1px solid #999;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-flex-direction: column;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    height: 200px;\n    -webkit-justify-content: flex-start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    left: 50%;\n    margin-left: -175px;\n    margin-top: -100px;\n    padding: 20px;\n    position: fixed;\n    top: 50%;\n    width: 350px;\n    z-index: 999; }\n  .reevoo-mockator-insert_modal__buttons_bar {\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-justify-content: space-around;\n        -ms-flex-pack: distribute;\n            justify-content: space-around; }\n\n.reevoo-icon {\n  background-position: center;\n  background-repeat: no-repeat;\n  height: 70px;\n  width: 70px; }\n  .reevoo-icon.icon1 {\n    background-image: url(" + __webpack_require__(5) + "); }\n    .reevoo-icon.icon1:hover {\n      background-image: url(" + __webpack_require__(6) + "); }\n  .reevoo-icon.icon2 {\n    background-image: url(" + __webpack_require__(7) + "); }\n    .reevoo-icon.icon2:hover {\n      background-image: url(" + __webpack_require__(8) + "); }\n  .reevoo-icon.icon3 {\n    background-image: url(" + __webpack_require__(9) + ");\n    cursor: pointer; }\n    .reevoo-icon.icon3:hover {\n      background-image: url(" + __webpack_require__(10) + "); }\n  .reevoo-icon.icon4 {\n    background-image: url(" + __webpack_require__(11) + "); }\n    .reevoo-icon.icon4:hover {\n      background-image: url(" + __webpack_require__(12) + "); }\n  .reevoo-icon.icon5 {\n    background-image: url(" + __webpack_require__(13) + "); }\n    .reevoo-icon.icon5:hover {\n      background-image: url(" + __webpack_require__(14) + "); }\n  .reevoo-icon.icon6 {\n    background-image: url(" + __webpack_require__(15) + "); }\n    .reevoo-icon.icon6:hover {\n      background-image: url(" + __webpack_require__(16) + "); }\n", ""]);
 	
 	// exports
 
