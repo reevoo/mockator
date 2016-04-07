@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var methodOverride = require('method-override');
 
-mongoose.connect('mongodb://localhost/mockator');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/visualiser');
 var Page = mongoose.model('Page', { title: String, url: String, html: String });
 
 var app = express();
