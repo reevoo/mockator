@@ -1,4 +1,4 @@
-PHONY = build release
+.PHONY = build release
 
 VERSION = $(shell git rev-parse HEAD)
 BUILD = $(shell date +%Y%m%d%H%M%S)
